@@ -1,20 +1,23 @@
 package com.gdsc.cookieparking.cookieparking.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import javax.persistence.Id;
-import java.util.List;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
-@Data
+
+@Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
+@Getter
+@Table(name = "USER_TABLE")
 public class User {
 
     @Id
+    @Column(name="user_id")
     private String id;
 
     private String name;
@@ -27,10 +30,45 @@ public class User {
 
     private int parkingScore;
 
-    private int readCount;
+    //private int readCount;
 
-    private List<Cookie> cookies;
+    //@JsonInclude(JsonInclude.Include.NON_NULL)
+    @ToString.Exclude
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true ,fetch = FetchType.EAGER)
+    private Set<Cookie> cookies = new HashSet<>();
 
-    private List<Directory> directories;
+    //@JsonInclude(JsonInclude.Include.NON_NULL)
+    @ToString.Exclude
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
+    private Set<Directory> directories = new HashSet<>();
+
+    public User(String id, String name, String email, String password, String confirmPassword ) {
+
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.confirmPassword = confirmPassword;
+        parkingScore = 0;
+        //readCount = 0;
+
+    }
+
+    public void addCookie(Cookie cookie) {
+        cookie.setUser(this);
+        cookies.add(cookie);
+        this.parkingScore++;
+    }
+
+    public void addDirectory(Directory directory) {
+        directory.setUser(this);
+        directories.add(directory);
+    }
+
+    public static boolean isSamePassword(String password, String confirmPassword) {
+        if(password.equals(confirmPassword))
+            return true;
+        return false;
+    }
 
 }
