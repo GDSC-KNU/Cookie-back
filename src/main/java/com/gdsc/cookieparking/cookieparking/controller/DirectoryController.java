@@ -33,5 +33,8 @@ public class DirectoryController {
     }*/
 
     //TODO 디렉토리 삭제 매핑 추가할 것
-
+    @DeleteMapping("/directories/{directoryId}")
+    public void delete(@PathVariable("directoryId") Long directoryId) {
+        directoryService.delete(directoryId);
+    }
 }

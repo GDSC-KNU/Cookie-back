@@ -33,4 +33,8 @@ public class DirectoryService {
 
         return directoryRepository.save(directory);
     }
+
+    public void delete(Long directoryId) {
+        directoryRepository.deleteById(directoryId);
+    }
 }

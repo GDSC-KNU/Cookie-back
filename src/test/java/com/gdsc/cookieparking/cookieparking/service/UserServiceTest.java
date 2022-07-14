@@ -78,13 +78,13 @@ class UserServiceTest {
 
     private void givenCookies() throws IOException {
 
-        givenCookie("A1", "https://www.naver.com");
-        givenCookie("A2", "https://www.naver.com");
-        givenCookie("A1", "https://www.naver.com");
-        givenCookie("A3", "https://www.naver.com");
+        givenCookie("A1", null,"https://www.naver.com");
+        givenCookie("A2", null,"https://www.naver.com");
+        givenCookie("A1", null,"https://www.naver.com");
+        givenCookie("A3", null,"https://www.naver.com");
     }
-    private void givenCookie(String userId, String url) throws IOException {
-        cookieService.addCookie(userId, url);
+    private void givenCookie(String userId,Long directoryId, String url) throws IOException {
+        cookieService.addCookie(userId,directoryId, url);
 
     }
 

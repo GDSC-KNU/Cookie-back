@@ -14,14 +14,14 @@ public class CookieController {
     @Autowired
     CookieService cookieService;
 
-    @GetMapping("users/{userId}/cookies")
+    @GetMapping("{userId}")
     public List<Cookie> list(@PathVariable("userId") String userId) {
         return cookieService.getCookieList(userId);
     }
 
     @PostMapping("{userId}/cookies")
-    public Cookie create(@PathVariable("userId") String userId, String url) throws IOException {
-        return cookieService.addCookie(userId, url);
+    public Cookie create(@PathVariable("userId") String userId,Long directoryId, String url) throws IOException {
+        return cookieService.addCookie(userId, directoryId, url);
     }
 
 

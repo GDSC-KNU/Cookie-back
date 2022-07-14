@@ -1,6 +1,7 @@
 package com.gdsc.cookieparking.cookieparking.service;
 
 import com.gdsc.cookieparking.cookieparking.domain.Cookie;
+import com.gdsc.cookieparking.cookieparking.domain.Directory;
 import com.gdsc.cookieparking.cookieparking.domain.User;
 import com.gdsc.cookieparking.cookieparking.repository.CookieRepository;
 import com.gdsc.cookieparking.cookieparking.repository.DirectoryRepository;
@@ -21,12 +22,13 @@ public class CookieService {
 
     @Autowired
     private DirectoryRepository directoryRepository;
+
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
-    public Cookie addCookie(String userId, String url) throws IOException {
+    public Cookie addCookie(String userId, Long directoryId, String url) throws IOException {
         User owner = userRepository.findById(userId).orElse(null);
-
+        Directory directory = directoryRepository.findById(directoryId).orElse(null);
         Cookie cookie = Cookie.builder()
                 .url(url)
                 .build();
@@ -34,7 +36,8 @@ public class CookieService {
 
         cookie.setTitle(makeTitle(url));
         cookie.setText(makeText(url));
-        cookie.setDirectory(null);
+        cookie.setDirectory(directory);
+        cookie.setUser(owner);
         owner.addCookie(cookie);
         return cookieRepository.save(cookie);
     }

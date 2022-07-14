@@ -30,14 +30,10 @@ public class User {
 
     private int parkingScore;
 
-    //private int readCount;
-
-    //@JsonInclude(JsonInclude.Include.NON_NULL)
     @ToString.Exclude
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Cookie> cookies = new HashSet<>();
 
-    //@JsonInclude(JsonInclude.Include.NON_NULL)
     @ToString.Exclude
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Directory> directories = new HashSet<>();
@@ -50,8 +46,6 @@ public class User {
         this.password = password;
         this.confirmPassword = confirmPassword;
         parkingScore = 0;
-        //readCount = 0;
-
     }
 
     public void addCookie(Cookie cookie) {
