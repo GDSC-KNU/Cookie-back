@@ -15,10 +15,9 @@ public class UserService {
 
     // 사용자 생성
     public User registerUser(String id, String name, String email, String password, String confirmPassword) {
-        Optional<User> existed = userRepository.findByEmail(id);
-        if(existed.isPresent()) {
-            throw new IdExistedException();
-        }
+        boolean existed = userRepository.existsByEmail(email);
+
+        if(existed) throw new IdExistedException();
 
         if(password != confirmPassword) {
             throw new DifferentPasswordException();
