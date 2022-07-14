@@ -8,6 +8,7 @@ import java.util.Set;
 
 
 @Entity
+@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -30,8 +31,8 @@ public class User {
 
     private int parkingScore;
 
-    @ToString.Exclude
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true)
+    //@ToString.Exclude
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Cookie> cookies = new HashSet<>();
 
     @ToString.Exclude
@@ -49,6 +50,8 @@ public class User {
     }
 
     public void addCookie(Cookie cookie) {
+        if(cookies == null)
+            cookies = new HashSet<>();
         cookie.setUser(this);
         cookies.add(cookie);
         this.parkingScore++;

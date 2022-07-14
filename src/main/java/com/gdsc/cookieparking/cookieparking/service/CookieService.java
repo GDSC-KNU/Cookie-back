@@ -28,7 +28,8 @@ public class CookieService {
 
     public Cookie addCookie(String userId, Long directoryId, String url) throws IOException {
         User owner = userRepository.findById(userId).orElse(null);
-        Directory directory = directoryRepository.findById(directoryId).orElse(null);
+
+        //Directory directory = directoryRepository.findById(directoryId).orElse(null);
         Cookie cookie = Cookie.builder()
                 .url(url)
                 .build();
@@ -36,8 +37,7 @@ public class CookieService {
 
         cookie.setTitle(makeTitle(url));
         cookie.setText(makeText(url));
-        cookie.setDirectory(directory);
-        cookie.setUser(owner);
+        cookie.setDirectory(null);
         owner.addCookie(cookie);
         return cookieRepository.save(cookie);
     }
@@ -75,6 +75,7 @@ public class CookieService {
     }
 
     public String makeText(String url) throws IOException {
+        //TODO 안되는 사이트들 있어서 조건 추가 필요!! 좀더 확실히 해야함
         Document document = Jsoup.connect(url).get();
         String text = document.select("meta[property=og:description]").get(0).attr("content");
         return text;

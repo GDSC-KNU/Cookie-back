@@ -1,11 +1,13 @@
 package com.gdsc.cookieparking.cookieparking.domain;
 
 import lombok.*;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 
 
 @Entity
+//@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,11 +26,13 @@ public class Cookie {
 
     private String text;
 
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;
 
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name="directory_id")
-    private Directory directory = new Directory();
+    private Directory directory;
 }

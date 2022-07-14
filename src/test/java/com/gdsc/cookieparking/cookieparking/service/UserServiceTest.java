@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.List;
@@ -46,18 +47,20 @@ class UserServiceTest {
 
 
     @Test
+    @Transactional
     void userCookieList() throws IOException {
 
         givenCookies();
         List<User> result = userService.getUsers();
-
-        for(User user: result) {
+        System.out.println("_______________________________________");
+        System.out.println(result);
+        /*for(User user: result) {
             System.out.println(user);
             List<Cookie> cookieList = cookieService.getCookieList(user.getId());
             for(Cookie cookie : cookieList) {
                 System.out.println(cookie);
             }
-        }
+        }*/
         //result.forEach(System.out::println);
     }
 
@@ -79,9 +82,9 @@ class UserServiceTest {
     private void givenCookies() throws IOException {
 
         givenCookie("A1", null,"https://www.naver.com");
-        givenCookie("A2", null,"https://www.naver.com");
-        givenCookie("A1", null,"https://www.naver.com");
-        givenCookie("A3", null,"https://www.naver.com");
+        givenCookie("A2", null,"https://jogeum.net/8");
+        givenCookie("A1", null,"https://www.daum.net");
+        givenCookie("A3", null,"https://www.nexon.com");
     }
     private void givenCookie(String userId,Long directoryId, String url) throws IOException {
         cookieService.addCookie(userId,directoryId, url);

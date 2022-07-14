@@ -14,7 +14,7 @@ class CookieServiceTest {
 
     @Test
     void makeTitle() throws IOException {
-        String url = "https://www.naver.com/";
+        String url = "https://www.acmicpc.net/";
         Document document = Jsoup.connect(url).get();
         System.out.println(document.title());
         //String info = elements
@@ -22,9 +22,10 @@ class CookieServiceTest {
 
     @Test
     void makeText() throws IOException{
-        String url = "https://www.naver.com/";
+        String url = "https://www.acmicpc.net/";
         Document document = Jsoup.connect(url).get();
         String text = document.select("meta[property=og:description]").get(0).attr("content");
+
         System.out.println(text);
 
 
