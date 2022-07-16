@@ -17,7 +17,7 @@ import java.util.List;
 public class Directory {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
@@ -25,8 +25,6 @@ public class Directory {
     private User user;
 
     private String name;
-
-    private String imageUrl;
 
     private String emoji;
 
