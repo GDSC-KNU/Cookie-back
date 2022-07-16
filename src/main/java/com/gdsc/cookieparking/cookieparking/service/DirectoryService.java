@@ -28,6 +28,7 @@ public class DirectoryService {
         Directory directory = Directory.builder()
                 .name(name)
                 .build();
+        directory.setUser(owner);
         owner.addDirectory(directory);
 
 

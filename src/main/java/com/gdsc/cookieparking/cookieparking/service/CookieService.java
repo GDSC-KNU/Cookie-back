@@ -29,7 +29,7 @@ public class CookieService {
     public Cookie addCookie(String userId, Long directoryId, String url) throws IOException {
         User owner = userRepository.findById(userId).orElse(null);
 
-        Directory directory = directoryRepository.findById(directoryId).orElse(null);
+        //Directory directory = directoryRepository.findById(directoryId).orElse(null);
 
         Cookie cookie = Cookie.builder()
                 .url(url)
