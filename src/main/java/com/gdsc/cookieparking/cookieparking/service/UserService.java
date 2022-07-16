@@ -1,8 +1,6 @@
 package com.gdsc.cookieparking.cookieparking.service;
 
 import com.gdsc.cookieparking.cookieparking.domain.User;
-import com.gdsc.cookieparking.cookieparking.repository.CookieRepository;
-import com.gdsc.cookieparking.cookieparking.repository.DirectoryRepository;
 import com.gdsc.cookieparking.cookieparking.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,6 +44,9 @@ public class UserService {
         return userRepository.findAll();
     }
     //TODO 사용자 삭제
+    public void deleteUser(String id) {
+        userRepository.deleteById(id);
+    }
 
     //TODO 사용자 정보 업데이트(이메일, 비밀번호)
 

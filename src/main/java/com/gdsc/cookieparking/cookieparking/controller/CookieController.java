@@ -26,7 +26,13 @@ public class CookieController {
 
 
     //TODO 쿠키 업데이트 매핑 추가할 것
+
+
     // TODO 쿠키 삭제 매핑 추가할 것
+    @DeleteMapping("/cookies/{cookieId}")
+    public void delete(@PathVariable("cookieId") Long cookieId) {
+        cookieService.deleteCookie(cookieId);
+    }
 
 
 

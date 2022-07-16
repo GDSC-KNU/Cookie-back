@@ -31,8 +31,7 @@ public class UserController {
     }
 
     @DeleteMapping("/users/{id}")
-    public String delete(@PathVariable String id) {
-        //TODO : 회원삭제 구현 기능 필요
-        return null;
+    public void delete(@PathVariable String id) {
+        userService.deleteUser(id);
     }
 }

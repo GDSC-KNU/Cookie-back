@@ -36,7 +36,7 @@ public class User {
     private Set<Cookie> cookies = new HashSet<>();
 
     @ToString.Exclude
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Directory> directories = new HashSet<>();
 
     public User(String id, String name, String email, String password, String confirmPassword ) {
@@ -58,6 +58,9 @@ public class User {
     }
 
     public void addDirectory(Directory directory) {
+        if(directories == null)
+            directories = new HashSet<>();
+
         directory.setUser(this);
         directories.add(directory);
     }
