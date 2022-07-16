@@ -1,24 +1,38 @@
 package com.gdsc.cookieparking.cookieparking.domain;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
+import org.springframework.lang.Nullable;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-@Data
+
+@Entity
+//@Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "cookie")
+@Setter
+@ToString
 public class Cookie {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String userId;
 
     private String url;
 
     private String title;
 
     private String text;
+
+    @ToString.Exclude
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private User user;
+
+    @ToString.Exclude
+    @ManyToOne
+    @JoinColumn(name="directory_id")
+    private Directory directory;
 }

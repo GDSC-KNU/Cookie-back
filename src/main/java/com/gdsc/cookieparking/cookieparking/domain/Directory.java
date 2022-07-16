@@ -1,27 +1,33 @@
 package com.gdsc.cookieparking.cookieparking.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class Directory {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String userId;
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private User user;
 
     private String name;
 
-    private String imageUrl;
-
     private String emoji;
 
-    private List<Cookie> cookie;
+    @OneToMany(mappedBy = "directory")
+    private List<Cookie> cookie = new ArrayList<>();
 }

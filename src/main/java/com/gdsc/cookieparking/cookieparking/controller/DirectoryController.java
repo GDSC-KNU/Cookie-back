@@ -4,10 +4,7 @@ import com.gdsc.cookieparking.cookieparking.domain.Cookie;
 import com.gdsc.cookieparking.cookieparking.domain.Directory;
 import com.gdsc.cookieparking.cookieparking.service.DirectoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,6 +25,16 @@ public class DirectoryController {
     }
 
     //TODO 디렉토리 업데이트 매핑 추가할 것
-    //TODO 디렉토리 삭제 매핑 추가할 것
+    /*@PatchMapping("{userId}/directories/{id}")
+    public Directory update(@PathVariable("userId") String userId,
+                             @RequestBody Directory resource) {
+        resource.
+        return directoryService.addDirectory(userId, name);
+    }*/
 
+    //TODO 디렉토리 삭제 매핑 추가할 것
+    @DeleteMapping("/directories/{directoryId}")
+    public void delete(@PathVariable("directoryId") Long directoryId) {
+        directoryService.delete(directoryId);
+    }
 }

@@ -14,18 +14,20 @@ public class CookieController {
     @Autowired
     CookieService cookieService;
 
-    @GetMapping("users/{userId}/cookies")
+    @GetMapping("{userId}")
     public List<Cookie> list(@PathVariable("userId") String userId) {
         return cookieService.getCookieList(userId);
     }
 
     @PostMapping("{userId}/cookies")
-    public Cookie create(@PathVariable("userId") String userId, String url) throws IOException {
-        return cookieService.addCookie(userId, url);
+    public Cookie create(@PathVariable("userId") String userId,Long directoryId, String url) throws IOException {
+        return cookieService.addCookie(userId, directoryId, url);
     }
 
 
     //TODO 쿠키 업데이트 매핑 추가할 것
+
+
     // TODO 쿠키 삭제 매핑 추가할 것
     @DeleteMapping("/cookies/{cookieId}")
     public void delete(@PathVariable("cookieId") Long cookieId) {
