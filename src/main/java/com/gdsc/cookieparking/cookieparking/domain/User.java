@@ -19,7 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
     private String id;
 
     private String name;
@@ -39,16 +39,6 @@ public class User {
     @ToString.Exclude
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Directory> directories = new HashSet<>();
-
-    public User(String id, String name, String email, String password, String confirmPassword ) {
-
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.confirmPassword = confirmPassword;
-        parkingScore = 0;
-    }
 
     public void addCookie(Cookie cookie) {
         if(cookies == null)

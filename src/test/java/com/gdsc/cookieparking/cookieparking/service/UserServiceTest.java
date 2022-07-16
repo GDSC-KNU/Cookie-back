@@ -31,9 +31,9 @@ class UserServiceTest {
 
     @BeforeEach
     void beforeEach() {
-        givenUser("A1", "조유리","abc1@naver.com", "1234", "1234");
-        givenUser("A2", "장원영","abc2@naver.com", "1234", "1234");
-        givenUser("A3", "최예나","abc3@naver.com", "1234", "1234");
+        givenUser("A4", "조유리","abc1@naver.com", "1234", "1234");
+        givenUser("A5", "장원영","abc2@naver.com", "1234", "1234");
+        givenUser("A6", "최예나","abc3@naver.com", "1234", "1234");
 
     }
     @Test
@@ -47,7 +47,6 @@ class UserServiceTest {
 
 
     @Test
-    @Transactional
     void userCookieList() throws IOException {
 
         givenCookies();
@@ -67,7 +66,7 @@ class UserServiceTest {
 
     private void givenUsers() {
 
-        givenUser("A2", "장원영","abc2@naver.com", "1234", "1234");
+        givenUser("A4", "장원영","abc2@naver.com", "1234", "1234");
         givenUser("A3", "최예나","abc3@naver.com", "1234", "1234");
 
     }

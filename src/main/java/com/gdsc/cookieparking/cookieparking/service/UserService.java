@@ -18,10 +18,9 @@ public class UserService {
 
     // 사용자 생성
     public User registerUser(String id, String name, String email, String password, String confirmPassword) {
-        Optional<User> existed = userRepository.findById(id);
-        if(existed.isPresent()) {
-            throw new IdExistedException(id);
-        }
+        boolean existed = userRepository.existsById(id);
+
+        if(existed) throw new IdExistedException(id);
 
         if(!isSamePassword(password, confirmPassword)) {
             throw new DifferentPasswordException();
@@ -32,11 +31,11 @@ public class UserService {
                 .name(name)
                 .email(email)
                 .password(password)
-                .confirmPassword(password)
+                .confirmPassword(confirmPassword)
                 .parkingScore(0)
                 //.readCount(0)
                 .build();
-
+        System.out.println(user.getEmail());
         return userRepository.save(user);
     }
 
