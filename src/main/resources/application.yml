@@ -1,18 +1,22 @@
 spring:
+  mvc:
+    view:
+      suffix: .html
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update # ?? ??? ?? Entity Class ???? Table ??
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/cookie?serverTimezone=Asia/Seoul
-    username: cookie
-    password: gdsc2cookie
+    username: root
+    password: 11111111
     secretKey: hjw
-
-  jpa:
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-        user_sql_cooments: true
-
-    hibernate:
-      ddl-auto: create
-
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+logging:
+  level:
+    root: info
+    com.zaxxer.hikari.HikariConfig: debug
+    org.hibernate.SQL: debug
+    hibernate.type.descriptor.sql.BasicBinder: trace
