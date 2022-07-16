@@ -5,6 +5,7 @@ import com.gdsc.cookieparking.cookieparking.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.management.openmbean.KeyAlreadyExistsException;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,10 +21,10 @@ public class UserService {
     public User registerUser(String id, String name, String email, String password, String confirmPassword) {
         boolean existed = userRepository.existsById(id);
 
-        if(existed) throw new IdExistedException(id);
+        if(existed) throw new KeyAlreadyExistsException();
 
         if(!isSamePassword(password, confirmPassword)) {
-            throw new DifferentPasswordException();
+            throw new IllegalArgumentException();
         }
 
         User user = User.builder()
@@ -31,11 +32,9 @@ public class UserService {
                 .name(name)
                 .email(email)
                 .password(password)
-                .confirmPassword(confirmPassword)
                 .parkingScore(0)
-                //.readCount(0)
                 .build();
-        System.out.println(user.getEmail());
+        //System.out.println(user.getEmail());
         return userRepository.save(user);
     }
 
@@ -47,7 +46,19 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    //TODO 사용자 정보 업데이트(이메일, 비밀번호)
+    public User getUserData(String id){
+        User user = userRepository.findById(id).orElse(null);
 
+        User userData = User.builder()
+                        .id(user.getId())
+                        .email(user.getEmail())
+                        .directories(user.getDirectories())
+                        .cookies(user.getCookies())
+                                .build();
+
+        System.out.println(user.getCookies());
+
+        return userData;
+    }
 
 }

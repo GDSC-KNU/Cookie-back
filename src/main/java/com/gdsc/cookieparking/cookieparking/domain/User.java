@@ -37,7 +37,7 @@ public class User {
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Cookie> cookies = new HashSet<>();
 
-    @ToString.Exclude
+   // @ToString.Exclude
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Directory> directories = new HashSet<>();
 
@@ -58,8 +58,7 @@ public class User {
     }
 
     public static boolean isSamePassword(String password, String confirmPassword) {
-        if(password.equals(confirmPassword))
-            return true;
+        if(password.equals(confirmPassword)) return true;
         return false;
     }
 
