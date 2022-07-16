@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 @Entity
@@ -18,7 +19,7 @@ import java.util.Set;
 public class User {
 
     @Id
-    @Column(name="user_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     private String name;
@@ -71,4 +72,16 @@ public class User {
         return false;
     }
 
+    public void updatePassword(PasswordEncoder passwordEncoder, String password){
+        this.password = passwordEncoder.encode(password);
+    }
+
+    public void updateName(String name){
+        this.name = name;
+    }
+
+    //패스워드 암호화
+    public void encodePassword(PasswordEncoder passwordEncoder){
+        this.password = passwordEncoder.encode(password);
+    }
 }

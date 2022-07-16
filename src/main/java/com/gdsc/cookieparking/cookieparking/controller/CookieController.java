@@ -33,7 +33,5 @@ public class CookieController {
     public void delete(@PathVariable("cookieId") Long cookieId) {
         cookieService.deleteCookie(cookieId);
     }
-
-
-
 }
+
