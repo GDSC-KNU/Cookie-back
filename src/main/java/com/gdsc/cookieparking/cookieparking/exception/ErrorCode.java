@@ -15,10 +15,6 @@ public enum ErrorCode {
     UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "인증되지 않은 사용자입니다."),
     NOT_EXISTS_USER(HttpStatus.UNAUTHORIZED, "존재하지 않는 사용자입니다."),
 
-<<<<<<< HEAD
-    /* 5xx INTER_SERVER_ERROR */
-    INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Server Error")    ;
-=======
     /* 403 FORBIDDEN */
     POST_FORBIDDEN(HttpStatus.FORBIDDEN, "해당 게시글에 대한 권한이 없습니다."),
 
@@ -29,10 +25,7 @@ public enum ErrorCode {
     EXISTS_ACCOUNT(HttpStatus.CONFLICT, "이미 존재하는 계정입니다"),
 
     /* 5xx INTER_SERVER_ERROR */
-    INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Server Error")
-    ;
->>>>>>> main
-
+    INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Server Error")    ;
 
     private final HttpStatus httpStatus;
     private final String message;

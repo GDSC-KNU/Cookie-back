@@ -42,11 +42,7 @@ public class User {
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Cookie> cookies;
 
-<<<<<<< HEAD
-   // @ToString.Exclude
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private Set<Directory> directories = new HashSet<>();
-=======
+
     @ToString.Exclude
     @JsonManagedReference
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -69,7 +65,6 @@ public class User {
     public void setDirectories() {
         this.directories = new ArrayList<Directory>();
     }
->>>>>>> main
 
     public void addCookie(Cookie cookie) {
         cookie.setUser(this);
