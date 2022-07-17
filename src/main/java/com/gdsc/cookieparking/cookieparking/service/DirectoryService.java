@@ -25,9 +25,9 @@ public class DirectoryService {
 
     public Directory addDirectory(String userId, String name) {
         User owner = userRepository.findById(userId).orElse(null);
-        Directory directory = Directory.builder()
-                .name(name)
-                .build();
+        Directory directory = new Directory();
+        directory.setName(name);
+
         directory.setUser(owner);
         owner.addDirectory(directory);
 

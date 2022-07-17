@@ -1,9 +1,8 @@
 package com.gdsc.cookieparking.cookieparking.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,7 +12,7 @@ import java.util.List;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@ToString
 public class Directory {
 
     @Id
@@ -21,6 +20,7 @@ public class Directory {
     private Long id;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name="user_id")
     private User user;
 
@@ -28,6 +28,9 @@ public class Directory {
 
     private String emoji;
 
-    @OneToMany(mappedBy = "directory")
+    @ToString.Exclude
+    @JsonIgnore
+   // @JsonManagedReference
+    @OneToMany(mappedBy = "directory", fetch = FetchType.LAZY)
     private List<Cookie> cookie = new ArrayList<>();
 }

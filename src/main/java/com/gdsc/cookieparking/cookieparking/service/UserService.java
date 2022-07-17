@@ -35,7 +35,9 @@ public class UserService {
                 .parkingScore(0)
                 //.readCount(0)
                 .build();
-        System.out.println(user.getEmail());
+        user.setCookies();
+        user.setDirectories();
+
         return userRepository.save(user);
     }
 
@@ -49,5 +51,12 @@ public class UserService {
 
     //TODO 사용자 정보 업데이트(이메일, 비밀번호)
 
+
+    public User getUserData(String id) {
+        User user = userRepository.findById(id).orElse(null);
+        System.out.println(user);
+        return user;
+
+    }
 
 }

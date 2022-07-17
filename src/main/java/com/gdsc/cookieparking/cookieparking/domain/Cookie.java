@@ -1,5 +1,7 @@
 package com.gdsc.cookieparking.cookieparking.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.springframework.lang.Nullable;
 
@@ -7,8 +9,7 @@ import javax.persistence.*;
 
 
 @Entity
-//@Data
-@Builder
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "cookie")
@@ -26,13 +27,21 @@ public class Cookie {
 
     private String text;
 
-    @ToString.Exclude
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name="user_id")
     private User user;
 
-    @ToString.Exclude
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name="directory_id")
     private Directory directory;
+
+    public Cookie(String url, String title, String text, User user, Directory directory) {
+        this.url = url;
+        this.title = title;
+        this.text = text;
+        this.user =user;
+        this.directory =directory;
+    }
 }
