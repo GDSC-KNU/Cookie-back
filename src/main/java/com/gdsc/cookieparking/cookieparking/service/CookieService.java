@@ -10,6 +10,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.List;
@@ -26,20 +27,24 @@ public class CookieService {
     @Autowired
     private UserRepository userRepository;
 
+    @Transactional
     public Cookie addCookie(String userId, Long directoryId, String url) throws IOException {
+
         User owner = userRepository.findById(userId).orElse(null);
 
         //Directory directory = directoryRepository.findById(directoryId).orElse(null);
 
-        Cookie cookie = Cookie.builder()
-                .url(url)
-                .build();
-        cookie.setUser(owner);
+        Cookie cookie = new Cookie();
 
+        cookie.setUrl(url);
         cookie.setTitle(makeTitle(url));
         cookie.setText(makeText(url));
+        cookie.setUser(owner);
         cookie.setDirectory(null);
+
         owner.addCookie(cookie);
+
+        userRepository.save(owner);
         return cookieRepository.save(cookie);
     }
 

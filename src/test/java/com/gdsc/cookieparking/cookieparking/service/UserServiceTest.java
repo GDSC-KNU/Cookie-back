@@ -27,26 +27,36 @@ class UserServiceTest {
     @Autowired
     private CookieService cookieService;
 
+    @Autowired
+    private DirectoryService directoryService;
 
 
     @BeforeEach
-    void beforeEach() {
-        givenUser("A4", "조유리","abc1@naver.com", "1234", "1234");
-        givenUser("A5", "장원영","abc2@naver.com", "1234", "1234");
-        givenUser("A6", "최예나","abc3@naver.com", "1234", "1234");
+    void beforeEach() throws IOException {
+        givenUser("A1", "조유리","abc1@naver.com", "1234", "1234");
+        givenUser("A2", "장원영","abc2@naver.com", "1234", "1234");
+        givenUser("A3", "최예나","abc3@naver.com", "1234", "1234");
+        //givenDirectories();
+        //givenCookies();
 
     }
     @Test
     void userList() {
-        givenUsers();
+        //givenUsers();
 
 
         List<User> result = userService.getUsers();
         result.forEach(System.out::println);
     }
 
+    @Test
+    void print() {
+        System.out.println("테스트 시작");
+    }
+
 
     @Test
+    @Transactional
     void userCookieList() throws IOException {
 
         givenCookies();
@@ -67,7 +77,7 @@ class UserServiceTest {
     private void givenUsers() {
 
         givenUser("A4", "장원영","abc2@naver.com", "1234", "1234");
-        givenUser("A3", "최예나","abc3@naver.com", "1234", "1234");
+        givenUser("A5", "최예나","abc3@naver.com", "1234", "1234");
 
     }
 
@@ -81,13 +91,30 @@ class UserServiceTest {
     private void givenCookies() throws IOException {
 
         givenCookie("A1", null,"https://www.naver.com");
-        givenCookie("A2", null,"https://jogeum.net/8");
+        givenCookie("A1", null,"https://jogeum.net/8");
         givenCookie("A1", null,"https://www.daum.net");
-        givenCookie("A3", null,"https://www.nexon.com");
+        givenCookie("A1", null,"https://www.nexon.com");
     }
+
+
+
+
+
     private void givenCookie(String userId,Long directoryId, String url) throws IOException {
         cookieService.addCookie(userId,directoryId, url);
 
     }
 
+<<<<<<< HEAD
 }
+=======
+    private void givenDirectories() {
+        givenDirectory("A1", "test1");
+        //givenDirectory("A1", "test2");
+    }
+    private void givenDirectory(String userId, String name) {
+        directoryService.addDirectory(userId, name);
+    }
+
+}
+>>>>>>> main

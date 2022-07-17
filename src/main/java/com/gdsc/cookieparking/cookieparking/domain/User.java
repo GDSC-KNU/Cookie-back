@@ -1,10 +1,13 @@
 package com.gdsc.cookieparking.cookieparking.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 
@@ -15,11 +18,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @NoArgsConstructor
 @ToString
 @Getter
-@Table(name = "USER_TABLE")
+@Table(name = "USER")
 public class User {
 
     @Id
-    @Column(name = "user_id")
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     private String name;
@@ -33,25 +36,48 @@ public class User {
 
     private int parkingScore;
 
-    //@ToString.Exclude
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private Set<Cookie> cookies = new HashSet<>();
+    @ToString.Exclude
+    @JsonManagedReference
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Cookie> cookies;
 
+<<<<<<< HEAD
    // @ToString.Exclude
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<Directory> directories = new HashSet<>();
+=======
+    @ToString.Exclude
+    @JsonManagedReference
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<Directory> directories;
+
+    public User(String id, String name, String email, String password, String confirmPassword ) {
+
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.confirmPassword = confirmPassword;
+        parkingScore = 0;
+    }
+
+    public void setCookies() {
+        this.cookies = new ArrayList<Cookie>();
+    }
+    public void setDirectories() {
+        this.directories = new ArrayList<Directory>();
+    }
+>>>>>>> main
 
     public void addCookie(Cookie cookie) {
-        if(cookies == null)
-            cookies = new HashSet<>();
         cookie.setUser(this);
         cookies.add(cookie);
         this.parkingScore++;
     }
 
     public void addDirectory(Directory directory) {
-        if(directories == null)
-            directories = new HashSet<>();
 
         directory.setUser(this);
         directories.add(directory);

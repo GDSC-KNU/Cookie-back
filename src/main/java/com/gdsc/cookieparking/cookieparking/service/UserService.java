@@ -37,7 +37,13 @@ public class UserService {
                 .password(passwordEncoder.encode(password))
                 .parkingScore(0)
                 .build();
+<<<<<<< HEAD
         //System.out.println(user.getEmail());
+=======
+        user.setCookies();
+        user.setDirectories();
+
+>>>>>>> main
         return userRepository.save(user);
     }
 
@@ -63,6 +69,13 @@ public class UserService {
         System.out.println(user.getCookies());
 
         return userData;
+    }
+
+    public User getUserData(String id) {
+        User user = userRepository.findById(id).orElse(null);
+        System.out.println(user);
+        return user;
+
     }
 
 }
