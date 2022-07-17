@@ -2,6 +2,7 @@ package com.gdsc.cookieparking.cookieparking.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,11 +13,17 @@ import javax.management.openmbean.KeyAlreadyExistsException;
 @ControllerAdvice
 public class ExceptionHandlers {
 
-    /*
+
     @ExceptionHandler(value= {UsernameNotFoundException.class})
     public ResponseEntity handleUsernameNotFoundExceptions() {
-        return new ResponseEntity(HttpStatus.NOT_FOUND);
-    }*/
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(ErrorResponse.builder()
+                        .code(HttpStatus.NOT_FOUND.name())
+                        .message("There is no such User")
+                        .build()
+                );
+    }
 
     @ExceptionHandler(value= {IllegalArgumentException.class})
     public ResponseEntity IllegalArgumentException() {

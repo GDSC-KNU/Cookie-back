@@ -3,6 +3,7 @@ package com.gdsc.cookieparking.cookieparking.service;
 import com.gdsc.cookieparking.cookieparking.domain.User;
 import com.gdsc.cookieparking.cookieparking.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.management.openmbean.KeyAlreadyExistsException;
@@ -17,6 +18,8 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     // 사용자 생성
     public User registerUser(String id, String name, String email, String password, String confirmPassword) {
         boolean existed = userRepository.existsById(id);
@@ -31,7 +34,7 @@ public class UserService {
                 .id(id)
                 .name(name)
                 .email(email)
-                .password(password)
+                .password(passwordEncoder.encode(password))
                 .parkingScore(0)
                 .build();
         //System.out.println(user.getEmail());
@@ -43,6 +46,7 @@ public class UserService {
     }
     //TODO 사용자 삭제
     public void deleteUser(String id) {
+
         userRepository.deleteById(id);
     }
 

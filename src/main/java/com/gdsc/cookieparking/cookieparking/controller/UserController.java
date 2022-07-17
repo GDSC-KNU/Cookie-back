@@ -10,13 +10,12 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 @RestController
-@RequestMapping("/user")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @GetMapping("/{userId}")
+    @GetMapping("/user/{userId}")
     public User getUserData(@PathVariable String userId){
 
         return userService.getUserData(userId);
@@ -36,8 +35,8 @@ public class UserController {
         return ResponseEntity.created(new URI(url)).body("{}");
     }
 
-    @DeleteMapping("/{userId}")
-    public void delete(@PathVariable String userId) {
+    @DeleteMapping("/user/{userId}")
+    public void delete(@PathVariable String userId, @RequestParam String token) {
 
         userService.deleteUser(userId);
     }
